@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="hr_contract_news_categories_form">
+			<field name="name">hr.contract.news.categories.form</field>
+			<field name="model">hr_contract.news.categories</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Categorias de Novedades de Contratos">
+                    <header>
+
+                    </header>
+                    <sheet>
+					<group name="hr_contract_news_categories" string="Categorias de Novedades">
+						<field name="name" />
+					</group>
+                    </sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_contract_news_categories_tree">
+			<field name="name">hr.contract.news.categories.tree</field>
+			<field name="model">hr_contract.news.categories</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Categorias de Novedades de Contratos">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="open_view_contract_news_categories">
+			<field name="name">Categorias de Novedades de Contratos</field>
+			<field name="res_model">hr_contract.news.categories</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem name="Categorias de Novedades de Contratos" action="open_view_contract_news_categories"
+                  parent="hr_contract.next_id_56"  id="menu_contract_news_categories"
+                sequence="1"/>
+
+    </data>
+</openerp>

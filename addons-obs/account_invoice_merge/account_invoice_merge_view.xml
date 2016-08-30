@@ -1,0 +1,107 @@
+<openerp>
+	<data>
+	
+	
+		<!--  view of res.partner -->
+
+        <record id="res_partner_insurance_view_form" model="ir.ui.view">
+            <field name="name">res.partner.insurance.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']/group/group[2]/field[@name='supplier']" position="after">
+                    <field name="insurance" />
+                </xpath>
+            </field>
+        </record>
+	
+		
+		<!--  Customer Invoice Inherit -->
+        
+        <record id="invoice_insurance_form" model="ir.ui.view">
+            <field name="name">account.invoice.insurance.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="related_patient_id" />
+                    <field name="related_invoice_id" attrs="{'invisible':[('insurance', '=', True)]}"/>
+                    <field name="insurance" invisible="1"/>
+                </xpath>
+                 <xpath expr="//page[@string='Payments']" position="after">
+                 	<page string="Related Invoices" attrs="{'invisible':[('insurance', '!=', True)]}">
+                            <field name="related_invoices">
+                            </field>
+                        <!--<field name="report_name" attrs="{'invisible':[('insurance', '!=', True)]}"/>-->
+                        <field widget="binary" height="64" name="report" filename="report_name" attrs="{'invisible':[('insurance', '!=', True)]}"/>
+                        <button name="export_to_csv" type="object" string="Exportar a CSV" colspan="4" attrs="{'invisible':[('insurance', '!=', True)]}"/>
+                        </page>
+                </xpath>
+                <xpath expr="//button[@name='invoice_open']" position="after">
+                	<button name="action_get_moves" attrs="{'invisible':[('insurance','!=',True)]}" string="Get Moves" type="object"/>
+                </xpath>
+
+
+
+            </field>
+        </record>
+
+        <!--<record id="invoice_insurance_list" model="ir.ui.view">-->
+            <!--<field name="name">account.invoice.insurance.list</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="debit_credit_note.account_inv_ext_view_tree_crdr"/>-->
+            <!--<field name="arch" type="xml">-->
+
+                <!--<field name="parent_id" position="replace">-->
+                    <!--<field name="related_invoice_id"/>-->
+                <!--</field>-->
+
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <!--  Merger Invoice wizard -->
+        
+		<record id="generate_invoice_merge_form" model="ir.ui.view">
+            <field name="name">generate.insurance.invoice.form</field>
+            <field name="model">generate.insurance.invoice</field>
+            <field name="arch" type="xml">
+            	<form string="Invoice Merge">
+            	<label string="This operation will merge all the invoices of the selected Insurance company to generate one invoice." colspan="4"/>
+				  	<newline/>
+				  	<newline/>
+            		<group>
+            			<field name="insurance_company_id"/>
+            		</group>
+            		<footer>
+                        <button name="create_invoice" string="Merge Invoices ?" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+            	</form>
+            </field>
+        </record>
+        
+        <record id="action_generate_invoice_merge" model="ir.actions.act_window">
+            <field name="name">Invoice Merge</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">generate.insurance.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="generate_invoice_merge_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="generate_invoice_merge_values">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">Invoice Merge</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_generate_invoice_merge'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record>
+
+
+
+	</data>
+</openerp>

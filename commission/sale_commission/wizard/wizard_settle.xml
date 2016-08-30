@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_settled_wizard" model="ir.ui.view">
+            <field name="name">Select period to settle</field>
+            <field name="model">sale.commission.make.settle</field>
+            <field name="arch" type="xml">
+                <form string="Settle commissions">
+                    <group>
+                        <p colspan="4">Seleccione la fecha hasta la que desea realizar las liquidaciones:
+                            Para liquidaciones mensuales debe seleccionar el primer dia del mes siguiente al mes que desea liquidar. Ej: Si desea liquidar desde el 01/01/2016 hasta el 31/01/2016 debera seleccionar el dia 01/02/2016.</p>
+                        <field name="date_to" />
+                    </group>
+                    <group string="Professionals" colspan="4">
+                        <p colspan="4">(keep empty for making the settlement of all professionals)</p>
+                        <field name="professionals" nolabel="1" widget="many2many_list"/>
+                    </group>
+                    <footer>
+                        <button name="action_settle"
+                                string="Make settlements"
+                                type="object"
+                                class="oe_highlight" />
+                        or
+                        <button
+                            name="action_cancel"
+                            string="Cancel"
+                            class="oe_link"
+                            special="cancel"
+                            />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_professionals_settlement"
+                    name="Settle commissions"
+                    res_model="sale.commission.make.settle"
+                    view_mode="form"
+                    view_type="form"
+                    target="new" />
+
+        <menuitem id="menu_professionals_settlement"
+                  parent="menu_sale_commissions_conf"
+                  action="action_professionals_settlement" />
+
+    </data>
+</openerp>

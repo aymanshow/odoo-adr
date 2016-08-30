@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+            <record model="ir.ui.view" id="hr_loan_tree_view">
+                <field name="name">hr.loan.tree</field>
+                <field name="model">hr.loan</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Loans" version="7.0" colors="gray: state=='cancel'; blue: state == 'draft'; black: state == 'approved'">
+                        <field name="employee_id"/>
+		                 <field name="start_date"/>
+                        <field name="amount"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="hr_loan_form_view">
+                <field name="name">hr.loan.form</field>
+                <field name="model">hr.loan</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Loans" version="7.0">
+                    	 <header>
+		                    <button string="Approve" name="approve_loan" states="draft" type="object" class="oe_highlight" groups="base.group_hr_manager"/>
+		                    <button string="Set to Draft" name="draft_loan" states="cancel" type="object" groups="base.group_hr_manager"/>
+		                    <button string="Cancel" name="cancel_loan" states="approved" type="object" class="oe_highlight" groups="base.group_hr_manager"/>
+	                    	<field name="state" widget="statusbar" statusbar_visible="draft,cancel,approved" />
+                		</header>
+                    	<sheet>
+                    	    <group col="3">
+                    	        <div>
+                    	           <h1>
+                    	               <field name="name"/>
+                    	           </h1>
+                    	        </div>
+                                <div class="oe_right oe_button_box" name="buttons">
+                                    <button type="object"
+                                            class="oe_stat_button"
+                                            id="journal_entries"
+                                            icon="fa-pencil"
+                                            name="open_entries"
+                                            groups="base.group_hr_manager"
+                                            attrs="{'invisible': [('move_id', '=', False )]}" >
+                                            <div>Journal Entries</div>
+                                    </button>
+                                </div>
+                            </group>
+                    		<group col="4" colspan="4">
+	                    		<field name="employee_id" domain="[('user_id','in',[uid])]" options="{'no_create': True}"
+	                    		       attrs="{'readonly':[('state','in',('approved','cancel'))]}" on_change="on_change_employee(employee_id)"/>
+		                        <field name="amount" on_change="on_change_amount(amount,employee_id,start_date)" attrs="{'readonly':[('state','in',('approved','cancel'))]}"/>
+		                        <field name="start_date" attrs="{'readonly':[('state','in',('approved','cancel'))]}"/>
+		                        <field name="payment_method" widget="selection" attrs="{'readonly':[('state','in',('approved','cancel'))]}" groups="base.group_hr_user"/>
+		                        <field name="reason" attrs="{'readonly':[('state','in',('approved','cancel'))]}"/>
+		                        <field name="is_exceed" invisible="1"/>
+		                        <field name="is_exceed_2" groups="base.group_hr_user"/>
+		                        <field name="depart_id" invisible="1"/>
+		                        <field name="depart_id_2" groups="base.group_hr_user"/>
+		                        <field name="move_id" readonly="1" invisible="1"/>
+		                        <separator string="Payments for Loan"  colspan="4"/>
+		                        <field name="loan_line_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',('approved','cancel'))]}">
+	                                <tree string="The period of payment of the loan" editable="bottom">
+	                                    <field name="discount_date"/>  
+	                                    <field name="amount" sum="Total"/>
+	                                </tree>
+	                            </field>
+		                    </group>
+                    	</sheet>
+                    </form>
+                </field>
+            </record>
+			
+			<record id="hr_loan_search_view" model="ir.ui.view">
+	            <field name="name">hr.loan.search</field>
+	            <field name="model">hr.loan</field>
+	            <field name="arch" type="xml">
+	                <search string="Search">
+		                <field name="employee_id"/>
+		                <filter string="Draft Status" name="state" domain="[('state','=','draft')]"/>
+		                <filter string="Approved Status" name="state" domain="[('state','=','approved')]"/>
+                        <filter string="Canceled Status" name="state" domain="[('state','=','cancel')]"/>
+		                <group expand="0" string="Group By..." colspan="12" col="10">
+		              		<filter string="Employee Name" domain="[]" context="{'group_by':'employee_id'}" icon="terp-project" />
+		              		<filter string="Day" icon="terp-go-today" domain="[]" context="{'group_by':'start_date'}"/>
+		              		<filter string="Department" icon="terp-go-today" domain="[]" context="{'group_by':'depart_id'}"/>
+                            <filter string="Status" domain="[]" context="{'group_by':'state'}" />
+		                </group>
+	  				 </search>
+	            </field>
+	        </record>
+        
+        
+            <record model="ir.actions.act_window" id="action_hr_loan_tree_view">
+                <field name="name">Loans</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">hr.loan</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="search_view_id" ref="hr_loan_search_view"/>
+                <field name="view_id" ref="hr_loan_tree_view"/>
+            </record>
+
+			<menuitem id="hr_loan_menu" name="Loans" parent="hr_payroll.menu_hr_root_payroll" 
+                      groups="base.group_user" action="action_hr_loan_tree_view"/>
+            
+            <menuitem id="hr_payroll.menu_hr_root_payroll" parent="hr.menu_hr_root" 
+                        groups="base.group_user" name="Payroll" sequence="30"/>
+            
+            <record id="loan_readonly_user" model="ir.ui.view">
+                <field name="name">hr.loan.readonly</field>
+                <field name="model">hr.loan</field>
+                <field name="inherit_id" ref="hr_loan_form_view" />
+                <field name="groups_id" eval="[(6, 0, [ref('base.group_hr_user') ])]" />
+                <field name="arch" type="xml">
+                    <field name="employee_id" position="attributes">
+                        <attribute name="domain"></attribute>
+                    </field>
+                </field>
+            </record>
+            
+        	<record model="ir.ui.view" id="hr_payroll_structure_loan_view">
+                <field name="name">hr.payroll.structure.loan.form</field>
+                <field name="model">hr.payroll.structure</field>
+	            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+	            <field name="arch" type="xml">
+	                <field name="parent_id" position="after">
+                     	<field name="loan_percentage"/>
+                    </field>
+	            </field>
+	        </record>
+        	
+        <!-- Payment Method -->
+        <record model="ir.ui.view" id="loan_payments_tree_view">
+                <field name="name">loan.payments.tree</field>
+                <field name="model">loan.payments</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="Loan Rules" version="7.0">
+                        <field name="name"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="loan_payments_form_view">
+                <field name="name">loan.payments.form</field>
+                <field name="model">loan.payments</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Loan Rules" version="7.0">
+                        <sheet>
+                            <group col="4" colspan="4">
+                                <field name="name"/>
+                                <field name="journal_id"/>
+                                <field name="debit_account_id" domain="[('type','in',['other','liquidity'])]"/>
+                                <field name="credit_account_id" domain="[('type','in',['other','liquidity'])]"/>
+                                <field name="analytic_account_id" domain="[('type','in',['normal'])]"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_loan_payments_tree_view">
+                <field name="name">Loans Rules</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">loan.payments</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="loan_payments_tree_view"/>
+            </record>
+
+            <menuitem id="loan_payments_menu" name="Loans" parent="hr.menu_hr_configuration" action="action_loan_payments_tree_view"/>
+
+        <record model="ir.ui.view" id="account_move_form_view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="loan_id"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="account_move_search">
+            <field name="name">account.move.search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="loan_id"/>
+                </field>
+            </field>
+        </record>
+        
+        <!-- Record Rule -->
+        <record id="property_rule_loan_employee" model="ir.rule">
+            <field name="name">Loans</field>
+            <field name="model_id" ref="model_hr_loan"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        </record>
+        <record id="property_rule_loan_officer" model="ir.rule">
+            <field name="name">Loan Officer</field>
+            <field name="model_id" ref="model_hr_loan"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('base.group_hr_user'))]"/>
+        </record>
+        
+        <!-- Loan Rule -->
+        <record id="loan_rule_add" model="hr.salary.rule">
+            <field name="name">Loans Rule</field>
+            <field name="sequence" eval="12"/>
+            <field name="code">LOR</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result=inputs.LOAN or False</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result =  inputs.LOAN.amount</field>
+        </record>
+        
+    </data>
+</openerp>

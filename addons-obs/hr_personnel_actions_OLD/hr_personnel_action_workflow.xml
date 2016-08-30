@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<!--Workflow-->
+	
+	<record model="workflow" id="hr_personnel_action_workflow">
+		<field name="name">hr.personnel.action.workflow</field>
+		<field name="osv">hr.personnel.action</field>
+		<field name="on_create">True</field>
+	</record>
+	
+<!--Activities-->
+
+	<record model="workflow.activity" id="act_draft">
+		<field name="wkf_id" ref="hr_personnel_action_workflow" />
+		<field name="flow_start">True</field>
+		<field name="name">draft</field>
+		<field name="action">action_draft()</field>
+		<field name="kind">function</field>
+	</record>
+	
+	<record model="workflow.activity" id="act_confirm">
+		<field name="wkf_id" ref="hr_personnel_action_workflow"/>
+		<field name="name">confirm</field>
+		<field name="action">action_confirm()</field>
+		<field name="kind">function</field>
+	</record>
+	
+	<record model="workflow.activity" id="act_cancel">
+		<field name="wkf_id" ref="hr_personnel_action_workflow"/>
+		<field name="name">cancel</field>
+		<field name="flow_stop">True</field>
+		<field name="action">action_cancel()</field>
+		<field name="kind">function</field>
+	</record>
+	
+	<record model="workflow.activity" id="act_approve">
+		<field name="wkf_id" ref="hr_personnel_action_workflow"/>
+		<field name="name">approve</field>
+		<field name="action">action_approve(effect_date=effective_date, requested_id=employee_id, requested_action=action_requested,new_dependency=proposed_dependency, new_job=proposed_ocupation,  new_scale_categ=proposed_salary_scale_category, new_scale_level=proposed_salary_scale_level, new_parent=proposed_parent_id,  new_coach=proposed_coach_id, new_turn=proposed_orderly_turn, new_wage=proposed_wage, new_diff=proposed_diff_scale, bonus=proposed_bonus, end_date=end_of_leave, end_new_contract=proposed_end_new_contract, salary_cut=proposed_salary_cut, context=None)</field>
+		<field name="kind">function</field>
+	</record>
+    
+    <record model="workflow.activity" id="act_apply">
+        <field name="wkf_id" ref="hr_personnel_action_workflow"/>
+        <field name="name">applied</field>
+        <field name="flow_stop">True</field>
+        <field name="action">action_apply()</field>
+        <field name="kind">function</field>
+    </record>
+	
+<!--Transitions-->
+
+	<record model="workflow.transition" id="draft_to_cancel">
+		<field name="act_from" ref="act_draft"/>
+		<field name="act_to" ref="act_cancel"/>
+		<field name="signal">button_cancel</field>
+	</record>
+
+	<record model="workflow.transition" id="draft_to_confirm">
+		<field name="act_from" ref="act_draft"/>
+		<field name="act_to" ref="act_confirm"/>
+		<field name="signal">button_confirm</field>
+	</record>
+	
+	<record model="workflow.transition" id="confirm_to_draft">
+		<field name="act_from" ref="act_confirm"/>
+		<field name="act_to" ref="act_draft"/>
+		<field name="signal">button_draft</field>
+	</record>
+	
+	<record model="workflow.transition" id="confirm_to_approve">
+		<field name="act_from" ref="act_confirm"/>
+		<field name="act_to" ref="act_approve"/>
+		<field name="signal">button_approve</field>
+	</record>
+	
+	<record model="workflow.transition" id="confirm_to_cancel">
+		<field name="act_from" ref="act_confirm"/>
+		<field name="act_to" ref="act_cancel"/>
+		<field name="signal">button_cancel</field>
+	</record>
+    
+    <record model="workflow.transition" id="approve_to_apply">
+        <field name="act_from" ref="act_approve"/>
+        <field name="act_to" ref="act_apply"/>
+        <field name="signal">button_apply</field>
+    </record>
+</data>	
+</openerp>

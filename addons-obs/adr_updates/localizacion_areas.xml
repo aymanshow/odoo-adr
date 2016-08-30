@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <!-- Para Localizacion-->
+        <record model="ir.ui.view" id="localizaciones_tree">
+            <field name="name">localizaciones.tree.view</field>
+            <field name="model">localizaciones</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <tree string="Localizacion" version="7.0" >
+                        <field name="name" />
+                    </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_localizaciones_form">
+            <field name="name">Localizacion</field>
+            <field name="res_model">localizaciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Lo agrega en el menu Contabilidad/COnfiguracines-->
+        <menuitem name="Localizacion" parent="account.menu_finance_configuration"
+                  action="view_localizaciones_form"
+                  id="menu_localizaciones" sequence="574" />
+
+         <!-- Para Areas-->
+        <record model="ir.ui.view" id="areas_tree">
+            <field name="name">areas.tree.view</field>
+            <field name="model">areas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <tree string="Areas" version="7.0" >
+                        <field name="name" />
+                    </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_areas_form">
+            <field name="name">Areas</field>
+            <field name="res_model">areas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Lo agrega en el menu Contabilidad/COnfiguracines-->
+        <menuitem name="Areas" parent="account.menu_finance_configuration"
+                  action="view_areas_form"
+                  id="menu_areas" sequence="575" />
+
+
+    </data>
+</openerp>

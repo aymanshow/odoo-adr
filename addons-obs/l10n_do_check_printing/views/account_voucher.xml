@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--===================Form Sequence id================================-->
+         <record model="ir.ui.view" id="sequenceid_form_view">
+            <field name="name">sequenceid.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Journal Items']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','not in',('posted','delivered'))]}</attribute>
+                </xpath>
+                <field name="partner_id" position="before">
+                    <group name="voucher_number" string="Numero de Cheque a Imprimir(Se mostrara al guardar el registro) " col="4" colspan="4">
+                        <h1>
+                            <label string="Numero "/>
+                            <field name="voucher_number" class="oe_inline" readonly="1"
+                                   options='{"always_reload": False}' attrs="{'invisible':[('voucher_number','=', 0 )]}"/>
+                        </h1>
+                    </group>
+                </field>
+                <field name="name" position="replace">
+                    <field name="name"/>
+                </field>
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state"/>
+                </xpath>
+                <xpath expr="//button[@name='cancel_voucher']" position="after">
+                    <button name="deliver_voucher" string="Entregar Cheque" type="object" states="posted"
+                            class="oe_highlight"/>
+                    <button name="reintegrate_voucher" string="Reintegrar Cheque" type="object" states="delivered"
+                            confirm="Esta seguro de que desea reintegrar este cheque?"/>
+
+                </xpath>
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,delivered"
+                           statusbar_colors='{"proforma":"blue"}'/>
+                </xpath>
+
+
+
+            </field>
+         </record>
+    </data>
+</openerp>

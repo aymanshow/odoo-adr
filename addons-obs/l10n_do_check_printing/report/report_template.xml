@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="check_one">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+			<style type="text/css" media="print">
+			   Div.PrintArea{page-break-after:always;writing-mode:lr-tb;}
+			   #sidebar,#header,#nav,#footer,#masthead, #navbar,{color:#FFFFFF;display:none;}
+			   .NomPrint{display:none !important;}
+			</style>
+                        
+			<style>
+			   body {
+                font-family: Verdana;
+    			font-size: 14px !important;
+    			font-weight: bold !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			   }
+
+			   #oe_main_menu_navbar,
+          		   .list-inline, 
+			   .js_language_selector, 
+			   .mt16 { 
+				display:none;		
+			   }
+
+			   .header, .header_date, .header_concept, .header_amount,
+			   .check_header, 
+			   .check_body, 
+			   .check_name,
+			   .check_date,
+			   .check_amount,
+			   .check_in_words,
+			   .check_footer,
+                .check_accounting_footer_top,
+                .account_footer_left,
+                .description_footer_left,
+                .debit_footer_left,
+                .credit_footer_left,
+                {
+				font-weight: bolder;
+				/*font-size: 10px;*/
+                }
+			   .header {
+			       margin-top:<t t-esc="o.journal_id.check_layout.header"/>in;
+			       position: fixed;
+			   }   
+			   .header_date {
+			       margin-top:<t t-esc="o.journal_id.check_layout.header_date"/>in;
+			       margin-left:<t t-esc="o.journal_id.check_layout.header_date_left"/>in;
+			       position: fixed;
+			   }   
+
+			   .header_concept {
+			       margin-top:<t t-esc="o.journal_id.check_layout.header_concept"/>in;
+			       margin-left:<t t-esc="o.journal_id.check_layout.header_concept_left"/>in;
+			       text-transform: uppercase;
+			       position: fixed;
+			   }   
+			   .header_amount {
+			       margin-top:<t t-esc="o.journal_id.check_layout.header_amount"/>in;
+			       margin-left:<t t-esc="o.journal_id.check_layout.header_amount_left"/>in;
+			       position: fixed;
+			   }   
+                           .check_header{
+     	                       margin-top:<t t-esc="o.journal_id.check_layout.check_header_top"/>in;
+	                       position: fixed;
+                           }
+                           .check_body{
+ 			        margin-top:<t t-esc="o.journal_id.check_layout.body_top"/>in;
+	                        position: fixed;
+        	            }
+                	    .check_name {
+                        	margin-top:<t t-esc="o.journal_id.check_layout.name_top"/>in;
+	                        margin-left:<t t-esc="o.journal_id.check_layout.name_left"/>in;
+        	                position: fixed;
+                            }
+                            .check_date {
+	                        margin-top:<t t-esc="o.journal_id.check_layout.date_top"/>in;
+        	                margin-left:<t t-esc="o.journal_id.check_layout.date_left"/>in;
+                	        /*width: 1.20in;*/
+				letter-spacing: 2.5px;
+                	        position: fixed;
+                            }
+                            .check_amount {
+            		        margin-top:<t t-esc="o.journal_id.check_layout.amount_top"/>in;
+       		                margin-left:<t t-esc="o.journal_id.check_layout.amount_left"/>in;
+                	        position: fixed;
+                            }
+                            .check_in_words {
+	                        margin-top: <t t-esc="o.journal_id.check_layout.amount_letter_top"/>in;
+        	                margin-left:<t t-esc="o.journal_id.check_layout.amount_letter_left"/>in;
+     		                position: fixed;
+                            }
+                            .check_accounting_footer_top{
+	                        margin-top:<t t-esc="o.journal_id.check_layout.check_accounting_footer_top"/>in;
+	                        <!--position: absolute;-->
+                            }
+                            .account_footer_left{
+                            margin-left:<t t-esc="o.journal_id.check_layout.account_footer_left"/>in;
+	                        position: fixed;
+                            }
+                            .description_footer_left{
+	                        margin-left:<t t-esc="o.journal_id.check_layout.description_footer_left"/>in;
+	                        position: fixed;
+                            }
+                            .debit_footer_left{
+	                        margin-left:<t t-esc="o.journal_id.check_layout.debit_footer_left"/>in;
+	                        position: fixed;
+                            }
+                            .credit_footer_left{
+	                        margin-left:<t t-esc="o.journal_id.check_layout.credit_footer_left"/>in;
+	                        position: fixed;
+                            }
+                            .check_footer{
+	                        margin-top:<t t-esc="o.journal_id.check_layout.check_footer_top"/>in;
+	                        position: fixed;
+                            }
+			    @page :first {
+				 margin-top:-0.5cm;
+				 margin-bottom: -4cm;
+			    }		    
+                        </style>
+			<script>
+			    document.getElementsByTagName('html')[0].setAttribute('moznomarginboxes', '');
+			    document.getElementsByTagName('html')[0].setAttribute('mozdisallowselectionprint', '');
+			    document.getElementsByTagName('title')[0].text.replace('check_one | Universidad Abierta para Adultos', '');
+			    //document.getElementsByTagName('body')[0].removeAttribute('class');
+			</script>
+                        <span class="check_header" t-if="o.journal_id.check_layout.check_header">
+                            <span t-raw="o.journal_id.check_layout.check_header"/>
+                        </span>
+                        <span class="header">
+                            <span class="header_date" t-esc="o.report_date"/>
+                            <span class="header_concept" t-esc="o.name"/>
+                            <span class="header_amount" t-esc="'{:,.2f}'.format(o.amount)" />
+                        </span>
+                        <span class="check_body">
+                            <span class="check_name" t-esc="o.partner_id.name"/>
+                            <span class="check_date" t-esc="o.report_date"/>
+                            <span class="check_amount" t-esc="'{:,.2f}'.format(o.amount)"/>
+                            <span class="check_in_words" t-esc="'** {} **'.format(o.amount_in_word)"/>
+                        </span>
+                        <table class="check_accounting_footer_top" t-if="o.move_ids">
+                            <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>Codigo</th>-->
+                                    <!--<th>Cuenta</th>-->
+                                    <!--<th>Debito</th>-->
+                                    <!--<th>Credito</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                                <tr t-foreach="o.move_ids" t-as="line">
+                                    <td><span class="account_footer_left" t-field="line.account_id.code"/></td>
+                                    <td><span class="description_footer_left" t-field="line.account_id.name"/></td>
+                                    <td><span class="debit_footer_left" t-field="line.debit"/></td>
+                                    <td><span class="credit_footer_left" t-field="line.credit"/></td>
+                                </tr>
+                            <!--</tbody>-->
+                        </table>
+
+                        <span class="check_footer" t-if="o.journal_id.check_layout.check_footer">
+                            <span t-raw="o.journal_id.check_layout.check_footer"/>
+                        </span>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

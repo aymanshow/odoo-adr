@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record id="account.act_open" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">open</field>
+            <field name="action">button_reset_taxes()
+action_date_assign()
+action_move_create()
+action_number()
+invoice_validate()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_invoice_updates" model="ir.ui.view">
+            <field name="name">account.invoice.updates</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <notebook position="inside">
+                    <page string="External source info" name="external_source_info">
+                        <group>
+                            <group>
+                                <field name="external_source"/>
+                                <field name="external_source_state"/>
+                                <field name="processed"/>
+                                <field name="payment_journal_id"/>
+                            </group>
+                        </group>
+
+                    </page>
+
+                </notebook>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

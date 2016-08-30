@@ -1,0 +1,18 @@
+/*.openerp th, .openerp td .oe_list_field_cell{
+  text-align: center;
+}*/
+.openerp .oe_form_sheetbg {
+    padding: 45px 0;
+}
+
+.openerp .oe_form header{
+position: fixed;
+z-index: 1;
+width: 82%;
+}
+
+
+/*Agregado por Ramon Caraballo
+Esta regla es por si hay muchos state mas stage que tapan los campos en el formview*/
+
+.openerp .oe_application .oe_form_sheet{margin-top: 85px;}

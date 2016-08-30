@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_partner_update_view" model="ir.ui.view">
+            <field name="name">res.partner_update_view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='mobile']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="phone2"/>
+                    <field name="extension"/>
+                </xpath>
+                <xpath expr="//field[@name='property_account_receivable']" position="replace">
+                    <field name="property_account_receivable" attrs="{'required': [('customer','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='property_account_payable']" position="replace">
+                    <field name="property_account_payable" attrs="{'required': [('supplier','=',True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="ars" string="ARS"/>
+                    <field name="employee" string="Es Empleado"/>
+                    <field name="estudiante" string="Estudiante"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_ars_form">
+            <field name="name">hr.employee.ars.form</field>
+            <field name="model">hr.employee.ars</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="ARS" version="7.0">
+                    <group name="hr_ars" string="ARS">
+                        <field name="sequence" />
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_ars_tree">
+            <field name="name">hr.employee.ars.tree</field>
+            <field name="model">hr.employee.ars</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="ARS" version="7.0" nolabel="1" colspan="2">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_recruitment_career_form">
+            <field name="name">hr.recruitment.career.form</field>
+            <field name="model">hr.recruitment.career</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                    <form string="Careers"  version="7.0">
+                        <group name="hr_careers" string="Careers">
+                            <field name="sequence"/>
+                            <field name="name" />
+                        </group>
+                    </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_recruitment_career_tree">
+            <field name="name">hr.recruitment.career.tree</field>
+            <field name="model">hr.recruitment.career</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Careers" version="7.0" nolabel="1" colspan="2">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_form_inherit">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='image_medium']" position="after">
+                        <field name="employee_code"/>
+                    </xpath>
+                    <xpath expr="//field[@name='address_home_id']" position="before">
+                        <field name="employee_code"/>
+                    </xpath>
+                    <xpath expr="//field[@name='address_home_id']" position="after">
+                        <field name="partner_phone" />
+                    </xpath>
+                    <xpath expr="//page[@string='Public Information']" position="after">
+                    </xpath>
+                    <xpath expr="//page[@string='Public Information']" position="inside">
+                            <group name="emergency_contacts" string="Contactos de Emergencia">
+                                <field name="emergency_contact" mode="tree" nolabel="1" colspan= "2" >
+                                    <tree string="Contacto de Emergencia" version="7.0" editable="top">
+                                        <field name="name"/>
+                                        <field name="emergency_contact_phone"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </xpath>
+                        <xpath expr="//field[@name='passport_id']" position="after">
+                            <field name="nss_id"/>
+                            <field name="hr_employee_ars_id"/>
+                    </xpath>
+                        <xpath expr="//page[@string='Personal Information']" position="inside">
+                            <group name="family_info" string="Informacion Familiar">
+                                <field name="family_info_ids" mode="tree" nolabel="1" colspan="2">
+                                    <tree string="Family Info" version="7.0" editable="top">
+                                        <field name="name"/>
+                                        <field name="relationship"/>
+                                        <field name="gender"/>
+                                        <field name="date_of_birth"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </xpath>
+                        <xpath expr="//page[@string='HR Settings']" position="after">
+                            <page string="Formacion Profesional">
+                                <field name="formation_ids">
+                                    <tree version="7.0">
+                                        <field name="career_id"/>
+                                        <field name="degree_id"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="specialization"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_view_ars">
+            <field name="name">open.view.ars</field>
+            <field name="res_model">hr.employee.ars</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_view_careers">
+            <field name="name">open.view.careers</field>
+            <field name="res_model">hr.recruitment.career</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree.form</field>
+        </record>
+
+        <menuitem name="Careers" action="open_view_careers" parent="hr.menu_hr_configuration"  id="menu_employee_careers" />
+        <menuitem name="ARS" action="open_view_ars" parent="hr.menu_hr_configuration" id="menu_employee_ars"/>
+
+
+
+        <!--record model="ir.ui.view" id="hr_contract_news_inherit">
+            <field name="name">hr.contract.news.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+            <data>
+              <xpath expr="//field[@name='type_id']" position="after">
+                <field name="company_id"/>
+              </xpath>
+              <xpath expr="//field[@name='date_end']" position="after">
+                <field name="contract_years"/>
+                <field name="contract_days"/>
+              </xpath>
+                <xpath expr="//field[@name='schedule_pay']" position="replace">
+                    <field name="schedule_pay"/>
+                </xpath>
+                </data>
+            </field>
+        </record-->
+
+
+    </data>
+</openerp>
+

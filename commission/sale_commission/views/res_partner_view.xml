@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form_professional" model="ir.ui.view">
+            <field name="name">res.partner.form.professional</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="18"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sale_salesman'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']//field[@name='supplier']" position="after">
+                    <field name="professional" string="Professional" />
+                </xpath>
+                <field name="user_id" position="after">
+                    <field name="professionals"
+                           attrs="{'invisible': [('customer', '=', False)]}"
+                           widget="many2many_tags"/>
+                </field>
+                <page name="sales_purchases" position="after">
+                    <page name="professional_information"
+                          string="Professional information"
+                          attrs="{'invisible': [('professional', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="professional_type"/>
+                                <field name="commission"
+                                       attrs="{'required': [('professional', '=', True)]}"/>
+                            </group>
+                            <group>
+                                <field name="settlement"/>
+                            </group>
+                            <group colspan="4"
+                                   string="Settlements">
+                                <field name="settlements" nolabel="1">
+                                    <tree string="Settlements"
+                                          colors="red: state == 'cancel'; gray: state == 'invoiced'">
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="total"
+                                               sum="Settled total" />
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+       <record id="view_res_partner_filter" model="ir.ui.view">
+           <field name="name">res.partner.select</field>
+           <field name="model">res.partner</field>
+           <field name="inherit_id" ref="base.view_res_partner_filter"/>
+           <field name="arch" type="xml">
+               <filter name="supplier" position="after">
+                   <filter string="Professionals" name="professional" domain="[('professional', '=', 1)]" help="Professional Partners"/>
+               </filter>
+            </field>
+        </record>
+
+        <record id="action_professional_form" model="ir.actions.act_window">
+            <field name="name">Professionals</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{"search_default_professional": 1, 'default_professional': 1, 'default_customer': 0, 'default_supplier': 1}</field>
+            <field name="search_view_id" ref="view_res_partner_filter"/>
+        </record>
+
+        <menuitem id="menu_professional_form"
+                  parent="base.menu_sales"
+                  action="action_professional_form"
+                  sequence="3"/>
+
+    </data>
+</openerp>

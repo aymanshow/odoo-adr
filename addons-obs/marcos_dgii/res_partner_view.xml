@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!--modifica el modulo de partner para validar rnc y posicion fiscal-->
+        <record model="ir.ui.view" id="marcos_view_partner_form">
+            <field name="name">marcos_view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="attributes">
+                    <attribute name="placeholder">Nombre</attribute>
+                </field>
+
+                <field name="property_account_position" position="replace"/>
+                <field name="ref" position="replace"/>
+
+                <field name="parent_id" position="before">
+                    <field name="ref" placeholder="RNC/Cédula" attrs="{'required': [('is_company','=',True)]}"/>
+                    <button string="Validar RNC | Cedula DGII " class="oe_inline"
+                                name="rnc_validation" on_change="onchange_personal_id(ref, context)" type="object"/>
+                    <div attrs="{'invisible': [('is_company','=', False)]}">
+                        <field name="property_account_position" placeholder="Posición fiscal"
+                            domain="['|',('for_supplier','=',supplier),('for_supplier','!=',customer)]"/>
+                    </div>
+                </field>
+
+                <field name="property_supplier_payment_term" position="after">
+                    <field name="invoice_method" attrs="{'invisible':[('supplier', '=', False)]}" string="Método facturación"/>
+                    <field name="multiple_company_rnc"/>
+                </field>
+
+            </field>
+        </record>
+
+        <!--record id="res_partner_vat_inherit" model="ir.ui.view">
+            <field name="name">res.partner.vat.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='vat_info']" position="replace">
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_inherit_form_view" model="ir.ui.view">
+            <field name="name">res.partner.inherit.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/div/h1" position="before" >
+                    <label for="vat_type"/>
+                    <div name="rnc_validation" class="oe_inline">
+                        <field name="vat_type" class="oe_inline" attrs="{'required':[('is_company','=',True)]}"/>
+                        <field name="rnc" on_change="onchange_personal_id(rnc, context)"/>
+                        <button string="Validar RNC | Cedula DGII " class="oe_inline"
+                                name="rnc_validation" on_change="onchange_personal_id(rnc, context)" type="object"/>
+                    </div>
+                </xpath>
+                <xpath expr="/form/sheet/div/h1/field[@name='name']" position="replace" >
+                    <field name="name" default_focus="1" placeholder="Name" required="0"/>
+                </xpath>
+            </field>
+        </record-->
+	</data>
+</openerp>

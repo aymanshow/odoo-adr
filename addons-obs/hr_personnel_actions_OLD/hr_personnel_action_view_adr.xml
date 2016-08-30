@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!-- Record for HR.Employee -->
+    <record model="ir.ui.view" id="hr_employee_form_inherit">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <!--field name="salary_scale_category"/>
+                <field name="salary_scale_level"/-->
+                <field name="on_vacation"/>
+                <field name="on_licence"/>
+                <field name="transfer_to"/>
+                <!--group col="2"-->
+                    <field name="proposed_misconduct"/>
+                                    <field name="proposed_misconduct_level"/>               
+                <!--/group-->
+            </xpath>
+            <xpath expr="//page[@string='HR Settings']" position="after">
+                <page name="personnel_actions" string="Personnel Actions">
+                    <field name="personnel_actions_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search Record for HR.Personnel.Action -->
+    <record model="ir.ui.view" id="personnel_action_search">
+        <field name="name">personnel.action.search</field>
+        <field name="model">hr.personnel.action</field>
+        <field name="arch" type="xml">
+                <search string="Personnel Actions">
+                        <field name="employee_id" string="Employee"/>
+                        <field name="origin_employee_id" string="Petitioner"/>
+                        <field name="origin_department_id" string="Department"/>
+                        <field name="states" string="States"/>
+                        <field name="action_requested" string="Action requested"/>
+                </search>
+        </field>
+    </record>
+
+   <!-- Form and Tree View foe HR.Personnel.Action. This the creator, all inherences must be from here -->
+    <record model="ir.ui.view" id="hr_personnel_action_form_view">
+        <field name="name">Personnel actions form</field>
+        <field name="model">hr.personnel.action</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Personnel Action" version="7.0">
+                <header>
+                    <button string="Confirm" name="button_confirm" type="workflow"/>
+                    <button string="Draft" name="button_draft" type="workflow"/>
+                    <button string="Approve" name="button_approve" type="workflow"/>
+                    <button string="Cancel" name="button_cancel" type="workflow"/>
+                    <button string="Apply" name="run_personnel_actions" type="object"/>
+                    <field name="states" widget="statusbar" statusbar_visible="draft, confirm, approve, applied"/>
+                    </header>
+                    <sheet>
+                
+                        <group colspan="4">
+                            <group string="Petitioner">
+                                <field name="origin_employee_id" on_change="onchange_petitioner(origin_employee_id, context)" />
+                                <field name="origin_department_id" />
+                                <field name="origin_company_id"  />
+                                <field name="origin_address"  />
+                                <field name="origin_state_id"  />
+                            </group>
+                            <group string="Petitionee">
+                                <field name="employee_id" on_change="onchange_petitionee(employee_id, contract_id, context)"/>
+                                <field name="action_requested_type"/>
+                                <field name="action_designation_requested"/>
+                                <field name="action_changes_requested"/>
+                                <field name="action_out_requested"/>
+                                <field name="action_others_requested"/>
+                                <field name="contract_id" string="Contracto" domain="[('employee_id','=',employee_id)]" on_change="onchange_contract_id(employee_id, contract_id, context)"/>
+                                <field name="effective_date" />
+                                <field name="actual_employee_code"/>
+                                <field name="actual_identification_id" />
+                            </group>
+                            <group string="Actual situation">
+                                <field name="actual_dependency" />
+                                <field name="actual_ocupation" />
+                                <!--field name="actual_salary_scale_category"  attrs="{'readonly':[('states','!=', 'draft')]}"/>
+                                <field name="actual_salary_scale_level"  attrs="{'readonly':[('states','!=', 'draft')]}"/-->
+                                <field name="actual_parent_id" />
+                                <!--field name="actual_coach_id"  attrs="{'readonly':[('states','!=', 'draft')]}"/-->
+                                <field name="actual_orderly_turn" />
+                                <field name="actual_wage" />
+                                <field name="actual_diff_scale"/>
+                                <field name="actual_total" />
+                            </group>
+                            <group string="Proposed situation">
+                                <!--field name="start_leave" attrs="{'readonly':[('states','!=', 'draft')],
+                                                                'required':['|',('action_requested', '=', '10'),
+                                                                '|',('action_requested','=','11')],
+                                                                'invisible':[('action_requested','!=','10'),
+                                                                ('action_requested','!=','11')]}"/-->
+
+                                <field name="end_of_leave"/>
+                                <field name="days_of_vacations"/>
+                                <field name="proposed_dependency" />
+                                <field name="proposed_ocupation"/>
+                                <!--field name="proposed_salary_scale_category" attrs="{'readonly':[('states','!=', 'draft')],
+                                'required':['|',('action_requested','=','3'),
+                                '|',('action_requested','=','12'),
+                                '|',('action_requested','=','13'),
+                                '|',('action_requested','=','14'),
+                                '|',('action_requested','=','15'),
+                                '|',('action_requested','=','16'),
+                                '|',('action_requested','=','17'),
+                                '|',('action_requested','=','18')],
+                                'invisible':[('action_requested','!=','3'),
+                                ('action_requested','!=','12'),
+                                ('action_requested','!=','13'),
+                                ('action_requested','!=','14'),
+                                ('action_requested','!=','15'),
+                                ('action_requested','!=','16'),
+                                ('action_requested','!=','17'),
+                                ('action_requested','!=','18')]}"/>
+                                <field name="proposed_salary_scale_level" attrs="{'readonly':[('states','!=', 'draft')],
+                                'required':['|',('action_requested','=','3'),
+                                '|',('action_requested','=','12'),
+                                '|',('action_requested','=','13'),
+                                '|',('action_requested','=','14'),
+                                '|',('action_requested','=','15'),
+                                '|',('action_requested','=','16'),
+                                '|',('action_requested','=','17'),
+                                '|',('action_requested','=','18')],
+                                'invisible':[('action_requested','!=','3'),
+                                ('action_requested','!=','12'),
+                                ('action_requested','!=','13'),
+                                ('action_requested','!=','14'),
+                                ('action_requested','!=','15'),
+                                ('action_requested','!=','16'),
+                                ('action_requested','!=','17'),
+                                ('action_requested','!=','18')]}"/-->
+                                <field name="proposed_parent_id" />
+                                <!--field name="proposed_coach_id" attrs="{'readonly':[('states', '!=', 'draft')],
+                                'required':['|',('action_requested','=', '4'),
+                                '|',('action_requested','=', '3'),
+                                '|',('action_requested','=','15'),
+                                '|',('action_requested','=','16'),
+                                '|',('action_requested','=','17'),
+                                '|',('action_requested','=','18')],
+                                'invisible':[('action_requested', '!=', '4'),
+                                ('action_requested','!=', '3'),
+                                ('action_requested','!=','15'),
+                                ('action_requested','!=','16'),
+                                ('action_requested','!=','17'),
+                                ('action_requested','!=','18')]}"/-->
+                                <field name="proposed_orderly_turn" />
+                                <field name="proposed_wage" />
+                                <field name="proposed_diff_scale" />
+                                <field name="proposed_total" />
+                                <field name="proposed_bonus" />
+                                <field name="proposed_transfer"/>
+                                <field name="proposed_end_new_contract"/>
+                                <field name="proposed_misconduct"/>
+                                <field name="proposed_misconduct_level"/>
+                            </group>
+                            <!--These fields are informative only and regarding employee termination-->
+                                <group string="Employee Benefits" col="6" colspan="3">
+                                    <group col="2" colspan="2">
+                                        <field name="average_daily_salary"/>
+                                        <field name="monthly_salary"/>
+                                    </group>
+                                    <group col="4" colspan="4">
+                                        <field name="vacations_days" />
+                                        <field name="vacations" />
+                                        <field name="days_severance" />
+                                        <field name="severance" />
+                                        <field name="days_forewarning" />
+                                        <field name="forewarning" />
+                                        <field name="months_worked" />
+                                        <field name="christmas_salary"/>
+                                        <field name="days_worked" />
+                                        <field name="total_worked" />
+                                        <field name="severance_days" />
+                                        <field name="severange_total" />
+                                        <group colspan="4" col="3">
+                                            <field name="employee_benefits_total" />
+                                        </group>
+                                    </group>
+                                </group>
+                            <group string="Observations" colspan="4">
+                                <field name="observations" placeholder="Insert any observation or commentary here." nolabel="1"/>
+                            </group>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_personnel_action_tree_view">
+        <field name="name">hr.personnel.action.tree.view</field>
+        <field name="model">hr.personnel.action</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+                <tree string="Personnel actions" version="7.0" colors="grey:states=='confirmed';black:states=='approved'; blue:states=='draft'; grey:states=='cancelled'; green:states=='applied'" >
+                        <field name="origin_employee_id"/>
+                        <field name="origin_department_id"/>
+                        <field name="employee_id"/>
+                        <field name="actual_dependency"/>
+                        <field name="action_requested"/>
+                        <field name="effective_date"/>
+                        <field name="states"/>
+                </tree>
+        </field>
+    </record>
+    
+    <!-- Action and Menu for HR.Personnel.Action -->
+    <record model="ir.actions.act_window" id="view_personnel_action_form">
+        <field name="name">Personnel Actions</field>
+        <field name="res_model">hr.personnel.action</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        
+    </record>
+
+    <menuitem name="Personnel Action" parent="hr.menu_hr_main" action="view_personnel_action_form" id="menu_personnel_action" sequence="5"/>
+
+    <!--Cron job that runs personnel actions once a day.-->
+    <record id="ir_cron_personnel_actions" model="ir.cron">
+        <field name="name">Run Personnel Actions Job</field>
+        <field name="active" eval="True"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model">hr.personnel.action</field>
+        <field name="function">run_personnel_actions</field>
+        <field name="args">()</field>
+    </record>
+
+</data>
+</openerp>

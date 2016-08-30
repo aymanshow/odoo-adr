@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="payroll_news_upload_wizard" model="ir.ui.view">
+            <field name="name">Contract news upload wizard</field>
+            <field name="model">contract.news.upload.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group colspan="2">
+                            <div>
+                                <h2>Instrucciones</h2>
+                                <span class='instructions'>
+                                  Utilice este asistente para generar y cargar la plantilla de novedades de su nomina.
+                                  Haga click en el boton "Generar plantilla". Descargue la plantilla generada haciendo
+                                    click en el enlace "Descargar" y completela segun la leyenda.
+                                </span>
+                                <span>
+                                    Una vez completada la plantilla haga click en el boton "Selecionar" y busque el
+                                    documento generado en su ordenador, seleccione y adjunte al formulario. Luego seleccione
+                                    el tipo de contrato al cual quiere aplicar la novedad y seleccione luego la novedad
+                                    que se aplicara a los contratos. Por ultimo haga click en el boton "Actualizar Novedades" que se
+                                    encuentra en la parte inferior del formulario.
+                                </span>
+                            </div>
+                        </group>
+                        <group colspan="2">
+                            <div>
+                                <h3>Composicion de plantilla para carga de novedades</h3>
+                                <table class='fields-table'>
+                                  <thead>
+                                      <th>Codigo Empleado</th>
+                                      <th>Importe descuento</th>
+                                      <th>Aplicar en</th>
+                                      <th>Tipo de frecuencia</th>
+                                      <th>Numero de veces</th>
+                                      <th>Fecha inicial</th>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Campo tipo "texto" (ej. 00791)</td>
+                                      <td>Campo tipo "numerico" (ej: 1500.00)</td>
+                                      <td>Campo tipo "numerico" (Valores permitidos: 1, 2, 3)
+                                      donde 1 = Primera quincena, 2 = Segunda quincena, 3 = Primera y segunda quincena</td>
+                                      <td>Campo tipo "texto" (Valores permitidos: 'fixed', 'variable'
+                                        donde 'fixed' = Fijo, 'variable' = Variable</td>
+                                      <td>Campo tipo "numerico"</td>
+                                      <td>Campo tipo "texto" Formato DD-MM-YYYY (ej: 15-04-2016)</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </group>
+
+                    </group>
+                    <div class="oe_right">
+                        <button type="object" name="do_generate_template" string="Generar Plantilla"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template" filename="template_name"/>
+                            <field name="data"/>
+                            <field name="contract_type_id"/>
+                            <field name="delimeter" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+
+                    </group>
+                        <field name="contract_news_concepts_ids"/>
+                    <group>
+
+                    </group>
+                    <footer>
+                        <button type="object" name="do_mass_update"
+                                string="Mass Update" class="oe_highlight" />
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- More button Action -->
+        <act_window id="payroll_news_upload.action_upload_wizard"
+            name="Upload Contracts News Wizard" src_model="hr.payslip.run" res_model="contract.news.upload.wizard"
+            view_mode="form" target="new" multi="False"/>
+
+    </data>
+</openerp>

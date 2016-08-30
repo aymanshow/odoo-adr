@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payroll_news_upload_payroll_news_upload,payroll_news_upload.payroll_news_upload,model_payroll_news_upload_payroll_news_upload,,1,0,0,0

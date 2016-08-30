@@ -1,0 +1,462 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_loan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-23 11:36+0000\n"
+"PO-Revision-Date: 2015-06-23 11:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_loan
+#: model:ir.model,name:hr_loan.model_account_move
+msgid "Account Entry"
+msgstr "قيد الحساب"
+
+#. module: hr_loan
+#: view:loan.payments:hr_loan.loan_payments_form_view
+#: view:loan.payments:hr_loan.loan_payments_tree_view
+msgid "Loan Rules"
+msgstr "Loan Rules"
+
+#. module: hr_loan
+#: help:hr.loan,move_ids:0
+msgid "Journal entries related to this loan"
+msgstr "قيود اليومية المرتبطه بالقرض"
+
+#. module: hr_loan
+#: field:hr.loan,amount:0
+#: field:hr.loan.line,amount:0
+msgid "Amount"
+msgstr "القيمة"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:236
+#: code:addons/hr_loan/loan.py:321
+#, python-format
+msgid "Amount is Above the Maximum limits with Max. percentage loan "
+msgstr "القيمة فوق الحد المسموح به "
+
+#. module: hr_loan
+#: help:hr.loan.line,amount:0
+msgid "Amount of each payment"
+msgstr "القيمة لكل دفعة"
+
+#. module: hr_loan
+#: help:hr.loan,amount:0
+msgid "Amount of loan"
+msgstr "قيمة القرض"
+
+#. module: hr_loan
+#: field:loan.payments,analytic_account_id:0
+msgid "Analytic Account"
+msgstr "الحساب التحليلي"
+
+#. module: hr_loan
+#: help:loan.payments,analytic_account_id:0
+msgid "Analytic account for journal entry"
+msgstr "الحساب التحليلي لقيد اليومية"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+msgid "Approve"
+msgstr "موافق"
+
+#. module: hr_loan
+#: selection:hr.loan,state:0
+msgid "Approved"
+msgstr "موافقة"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Approved Status"
+msgstr "الموافقة"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+#: selection:hr.loan,state:0
+msgid "Cancel"
+msgstr "الغاء"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Canceled Status"
+msgstr "الملغاء"
+
+#. module: hr_loan
+#: field:hr.loan,create_uid:0
+#: field:hr.loan.line,create_uid:0
+#: field:loan.payments,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: hr_loan
+#: field:hr.loan,create_date:0
+#: field:hr.loan.line,create_date:0
+#: field:loan.payments,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: hr_loan
+#: field:loan.payments,credit_account_id:0
+msgid "Credit Account"
+msgstr "حساب الدائن"
+
+#. module: hr_loan
+#: help:loan.payments,credit_account_id:0
+msgid "Credit account for journal entry"
+msgstr "حساب الدائن لقيد اليومية"
+
+#. module: hr_loan
+#: field:hr.loan,start_date:0
+#: field:hr.loan.line,discount_date:0
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: hr_loan
+#: help:hr.loan.line,discount_date:0
+msgid "Date for discount the amount"
+msgstr "تاريخ خصم القيمة"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Day"
+msgstr "اليوم"
+
+#. module: hr_loan
+#: field:loan.payments,debit_account_id:0
+msgid "Debit Account"
+msgstr "حساب المدين"
+
+#. module: hr_loan
+#: help:loan.payments,debit_account_id:0
+msgid "Debit account for journal entry"
+msgstr "حساب المدين لقيد اليومية"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+#: field:hr.loan,depart_id:0
+#: field:hr.loan,depart_id_2:0
+msgid "Department"
+msgstr "القسم"
+
+#. module: hr_loan
+#: help:hr.loan,depart_id:0
+msgid "Department of employee"
+msgstr "قسم الموظف"
+
+#. module: hr_loan
+#: selection:hr.loan,state:0
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Draft Status"
+msgstr "المسودات"
+
+#. module: hr_loan
+#: field:hr.loan,employee_id:0
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+#: help:hr.loan,employee_id:0
+msgid "Employee Name"
+msgstr "اسم الموظف"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:61
+#: code:addons/hr_loan/loan.py:94
+#: code:addons/hr_loan/loan.py:98
+#: code:addons/hr_loan/loan.py:102
+#: code:addons/hr_loan/loan.py:107
+#: code:addons/hr_loan/loan.py:225
+#: code:addons/hr_loan/loan.py:255
+#: code:addons/hr_loan/loan.py:270
+#: code:addons/hr_loan/loan.py:291
+#: code:addons/hr_loan/loan.py:308
+#: code:addons/hr_loan/loan.py:320
+#: code:addons/hr_loan/loan.py:335
+#, python-format
+msgid "Error!"
+msgstr "خطأ"
+
+#. module: hr_loan
+#: field:hr.loan,is_exceed:0
+#: field:hr.loan,is_exceed_2:0
+msgid "Exceed the Maximum"
+msgstr "تعدى القيمة الاقصى للقرض"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Group By..."
+msgstr "تجميع ب ..."
+
+#. module: hr_loan
+#: field:hr.loan,id:0
+#: field:hr.loan.line,id:0
+#: field:loan.payments,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:172
+#, python-format
+msgid "Inverse: "
+msgstr "قيد عكسي : "
+
+#. module: hr_loan
+#: field:loan.payments,journal_id:0
+msgid "Journal"
+msgstr "يومية"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:341
+#: view:hr.loan:hr_loan.hr_loan_form_view
+#: field:hr.loan,move_ids:0
+#, python-format
+msgid "Journal Entries"
+msgstr "قيود اليومية"
+
+#. module: hr_loan
+#: field:hr.loan,move_id:0
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: hr_loan
+#: help:hr.loan,move_id:0
+msgid "Journal Entry for loan"
+msgstr "قيد اليومية للقرض"
+
+#. module: hr_loan
+#: help:loan.payments,journal_id:0
+msgid "Journal for journal entry"
+msgstr "اليومية لقيد اليومية"
+
+#. module: hr_loan
+#: field:hr.loan,write_uid:0
+#: field:hr.loan.line,write_uid:0
+#: field:loan.payments,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: hr_loan
+#: field:hr.loan,write_date:0
+#: field:hr.loan.line,write_date:0
+#: field:loan.payments,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: hr_loan
+#: field:account.move,loan_id:0
+#: field:hr.loan.line,loan_id:0
+msgid "Loan"
+msgstr "القرض"
+
+#. module: hr_loan
+#: field:hr.loan,loan_line_ids:0
+msgid "Loan Lines"
+msgstr "أسطر القرض"
+
+#. module: hr_loan
+#: help:account.move,loan_id:0
+msgid "Loan Record"
+msgstr "سجل القرض"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:80
+#, python-format
+msgid "Loan for "
+msgstr "القرض ل "
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+#: view:hr.loan:hr_loan.hr_loan_tree_view
+#: model:ir.actions.act_window,name:hr_loan.action_hr_loan_tree_view
+#: model:ir.ui.menu,name:hr_loan.hr_loan_menu
+#: model:ir.ui.menu,name:hr_loan.loan_payments_menu
+msgid "Loans"
+msgstr "القروض"
+
+#. module: hr_loan
+#: model:ir.actions.act_window,name:hr_loan.action_loan_payments_tree_view
+msgid "Loans Rules"
+msgstr "قواعد القروض"
+
+#. module: hr_loan
+#: field:hr.payroll.structure,loan_percentage:0
+msgid "Max Loan Percentage (%)"
+msgstr "الحد الاقصى لنسبة القرض(%)"
+
+#. module: hr_loan
+#: help:hr.payroll.structure,loan_percentage:0
+msgid "Maximum percentage of loan for each structure"
+msgstr "الحد الاقصى لنسبة القرض"
+
+#. module: hr_loan
+#: field:hr.loan,name:0
+#: field:loan.payments,name:0
+msgid "Name"
+msgstr "الاسم"
+
+#. module: hr_loan
+#: help:hr.loan,name:0
+msgid "Sequence of loan"
+msgstr "تسلسل القرض"
+
+#. module: hr_loan
+#: model:ir.model,name:hr_loan.model_hr_payslip
+msgid "Pay Slip"
+msgstr "ظرف المرتب"
+
+#. module: hr_loan
+#: field:hr.loan,payment_method:0
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#. module: hr_loan
+#: help:hr.loan,payment_method:0
+msgid "Payment method for loan"
+msgstr "طرق الدفع للقرض"
+
+#. module: hr_loan
+#: help:loan.payments,name:0
+msgid "Payment name"
+msgstr "اسم طريقه الدفع"
+
+#. module: hr_loan
+#: field:hr.loan,period_id:0
+msgid "Period"
+msgstr "الفترة"
+
+#. module: hr_loan
+#: help:hr.loan,period_id:0
+msgid "Period of loan"
+msgstr "الفترة للقرض"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:99
+#, python-format
+msgid "Please Set Amount"
+msgstr "الرجاء ادخال قيمة"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:103
+#, python-format
+msgid "Please Set Journal For payment method"
+msgstr "الرجاء ادخال اليومية لطريقة الدفع"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:108
+#, python-format
+msgid "Please Set credit/debit account "
+msgstr "الرجاء ادخال حساب المدين , حساب الدائن لطريقة الدفع"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:95
+#, python-format
+msgid "Please Set payment method"
+msgstr "الرجاء ادخال طريقة الدفع"
+
+#. module: hr_loan
+#: field:hr.loan,reason:0
+msgid "Reason"
+msgstr "السبب"
+
+#. module: hr_loan
+#: help:hr.loan,reason:0
+msgid "Reason of loan"
+msgstr "سبب القرض"
+
+#. module: hr_loan
+#: model:ir.model,name:hr_loan.model_hr_payroll_structure
+msgid "Salary Structure"
+msgstr "هيكل المرتب"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+msgid "Search"
+msgstr "بحث"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+msgid "Set to Draft"
+msgstr "تعيين كمسودة"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_search_view
+#: field:hr.loan,state:0
+msgid "Status"
+msgstr "الحالة"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:226
+#: code:addons/hr_loan/loan.py:256
+#: code:addons/hr_loan/loan.py:309
+#, python-format
+msgid "The Employee Out Of Work"
+msgstr "الموظف انتهى عقده"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+msgid "The period of payment of the loan"
+msgstr "فترة تسديد القرض"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:336
+#, python-format
+msgid "There is a loan in progress "
+msgstr "يوجد قرض مستحق دفعه "
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+msgid "Total"
+msgstr "المجموع"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:271
+#: code:addons/hr_loan/loan.py:292
+#, python-format
+msgid "Total of Lines not equel to amount"
+msgstr "مجموع  قيمة الاسطر لا يساوي قيمة القرض"
+
+#. module: hr_loan
+#: help:hr.loan,is_exceed:0
+msgid "True if the amount exceed the limit for employee"
+msgstr "True if the amount exceed the limit for employee"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:235
+#, python-format
+msgid "Warning!"
+msgstr "تحذير"
+
+#. module: hr_loan
+#: help:hr.loan,loan_line_ids:0
+msgid "When to pay the loan and amount of each date"
+msgstr "وقت استحقاق الدفعة للقرض"
+
+#. module: hr_loan
+#: code:addons/hr_loan/loan.py:62
+#, python-format
+msgid "You Can not Delete Loan/s that have Journal Entries ."
+msgstr "لا تستطيع حذف قرض يوجد لديها قيود يومية"
+
+#. module: hr_loan
+#: help:hr.loan,start_date:0
+msgid "date to Start the loan"
+msgstr "تاريخ بداية القرض"
+
+#. module: hr_loan
+#: view:hr.loan:hr_loan.hr_loan_form_view
+msgid "Payments for Loan"
+msgstr "الدفعات المستحقة للقرض"

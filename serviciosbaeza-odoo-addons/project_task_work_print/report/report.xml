@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+         <report id="taskwork_report"
+                 string="Project task works report"
+                 model="project.project"
+                 name="project.task.work"
+                 rml="project_task_work_print/report/taskwork_report.rml"/>
+
+         <report id="taskwork_task_report"
+                 string="Project task works report"
+                 model="project.task"
+                 name="project.task.work.task"
+                 rml="project_task_work_print/report/task_taskwork_report.rml"/>
+
+    </data>
+</openerp>

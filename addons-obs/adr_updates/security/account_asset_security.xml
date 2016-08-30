@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="property_rule_all_department_asset_move" model="ir.rule">
+        <field name="name">Todos los movimientos de activos</field>
+        <field name="model_id" ref="adr_updates.model_account_asset_move"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('internal_requisition.internal_requisition_all'))]"/>
+    </record>
+
+    <record id="property_rule_from_my_department_asset_move" model="ir.rule">
+        <field name="name">Movimientos de activos desde y/o hacia mi departamento</field>
+        <field name="model_id" ref="adr_updates.model_account_asset_move"/>
+        <field name="domain_force">['|',('manager_id.user_id.id','=',user.id),
+            ('destiny_discharge_location.department_id.manager_id.user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('internal_requisition.internal_requisition_manager'))]"/>
+    </record>
+
+    <record id="property_rule_from_my_department_asset_move" model="ir.rule">
+        <field name="name">Movimientos de activos desde y/o hacia mi departamento</field>
+        <field name="model_id" ref="adr_updates.model_account_asset_move"/>
+        <field name="domain_force">['|',('manager_id.user_id.id','=',user.id),
+            ('destiny_account_analytic_id.department_id.manager_id.user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('internal_requisition.internal_requisition_manager'))]"/>
+    </record>
+
+    <record id="property_rule_own_asset_move" model="ir.rule">
+        <field name="name">Mis movimientos de activos</field>
+        <field name="model_id" ref="adr_updates.model_account_asset_move"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4,ref('internal_requisition.internal_requisition_user'))]"/>
+    </record>
+
+
+</data>
+</openerp>

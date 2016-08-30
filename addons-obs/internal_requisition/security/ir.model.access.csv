@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_internal,internal.requisition,model_internal_requisition,internal_requisition_user,1,1,1,0
+access_hr_internal_stock,internal.requisitio_stockn,model_stock_picking,internal_requisition_user,1,1,1,0
+access_emp_internal,internal.requisition,model_internal_requisition,internal_requisition_manager,1,1,1,1
+access_all_internal,internal.requisition,model_internal_requisition,internal_requisition_all,1,1,1,0
+access_hr_internal_l,internal.requisitionline,model_internal_requisition_line,internal_requisition_user,1,1,1,0
+access_emp_internal_l,internal.requisitionline,model_internal_requisition_line,internal_requisition_manager,1,1,1,1
+access_all_internal_l,internal.requisitionline,model_internal_requisition_line,internal_requisition_all,1,1,1,1
+access_ir_user_crossovered_budget,crossovered.budget,account_budget.model_crossovered_budget,internal_requisition_user,1,0,0,0
+access_ir_manager_crossovered_budget,crossovered.budget,account_budget.model_crossovered_budget,internal_requisition_manager,1,0,0,0

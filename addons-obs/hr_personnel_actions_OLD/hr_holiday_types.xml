@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+	<record id="holiday_licence_with_pay" model="hr.holidays.status">
+		<field name="name">Licence with payment</field>
+		<field name="color_name">blue</field>
+		<field name="limit">True</field>
+		<field name="active">True</field>
+	</record>
+	<record id="holiday_licence_without_pay" model="hr.holidays.status">
+		<field name="name">Licence without payment</field>
+		<field name="color_name">red</field>
+		<field name="limit">True</field>
+		<field name="active">True</field>
+	</record>
+	<record id="holiday_vacations" model="hr.holidays.status">
+		<field name="name">Vacations</field>
+		<field name="limit">True</field>
+		<field name="color_name">magenta</field>
+		<field name="active">True</field>
+	</record>
+
+</data>
+</openerp>
+		

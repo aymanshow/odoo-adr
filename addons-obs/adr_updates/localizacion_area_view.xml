@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Para Localizacion-->
+        <record model="ir.ui.view" id="localizacion_tree">
+            <field name="name">localizacion.tree.view</field>
+            <field name="model">localizaciones</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <tree string="Localizacion" version="7.0" >
+                        <field name="name" />
+                    </tree>
+            </field>
+        </record>
+
+        <!-- Action and Menu for HR.Personnel.Action -->
+        <record model="ir.actions.act_window" id="view_localizacion_form">
+            <field name="name">Localizaciones</field>
+            <field name="res_model">localizaciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Para agregarlo al menu COntabilidad/COnfiguracion-->
+        <menuitem name="Localizacion" parent="account.menu_finance_configuration"
+                  action="view_localizacion_form"
+                  id="menu_localizacion" sequence="574" />
+
+
+        <!-- Para Areas-->
+        <record model="ir.ui.view" id="areas_tree">
+            <field name="name">areas.tree.view</field>
+            <field name="model">areas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <tree string="Localizacion" version="7.0" >
+                        <field name="name" />
+                        <field name="localizacion" />
+                    </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="view_areas_form">
+            <field name="name">Areas</field>
+            <field name="res_model">areas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Para agregarlo al meno Contabilidad/Configuracion-->
+        <menuitem name="Areas" parent="account.menu_finance_configuration"
+                  action="view_areas_form"
+                  id="menu_areas" sequence="575" />
+
+
+    </data>
+</openerp>

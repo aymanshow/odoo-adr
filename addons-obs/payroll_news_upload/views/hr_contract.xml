@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_contract_news" model="ir.ui.view">
+            <field name="name">hr.contract.news.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='information']" position="inside">
+                    <group name="contract_news" string="Novedades del Contrato">
+                        <field name="hr_contract_news_ids" mode="tree" nolabel="1" colspan="2">
+                            <tree string="HR Contract news" editable="botton">
+                                <field name="hr_contract_news_concepts_id" nocreate="1" />
+                                <field name="amount" />
+                                <field name="apply_on" />
+                                <field name="frecuency_type" />
+                                <field name="frecuency_number"
+                                       attrs="{'readonly':[('frecuency_type','=', 'fixed')],
+                                       'required':[('frecuency_type','!=', 'fixed')]}" />
+                                <field name="start_date" attrs="{'readonly':[('frecuency_type','=', 'fixed')],
+                                       'required':[('frecuency_type','!=', 'fixed')]}" />
+                                <field name="end_date" attrs="{'readonly':[('frecuency_type','=', 'fixed')],
+                                       'required':[('frecuency_type','!=', 'fixed')]}" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
